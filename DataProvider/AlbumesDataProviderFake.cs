@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MiPrimerApi.Models;
+using System.Linq;
 using System;
 
 namespace MiPrimerApi.DataProvider
@@ -9,20 +10,21 @@ namespace MiPrimerApi.DataProvider
         public AlbumesDataProviderFake(){
             Ticks = DateTime.Now.Ticks;
         }
-        private List<Album> Albumes = new List<Album>(){
-            new Album(){
-                Id = 1,
-                AnioPublicacion = 2016,
-                Artista = "Arjona",
-                Nombre = "5to Piso", 
-            },
-            new Album(){
-                Id = 2,
-                AnioPublicacion = 2006,
-                Artista = "Adres Calamaro",
-                Nombre = "El Salmon", 
-            },
-        };
+        private List<Album> Albumes = new List<Album>();
+        // {
+        //     new Album(){
+        //         Id = 1,
+        //         AnioPublicacion = 2016,
+        //         Artista = "Arjona",
+        //         Nombre = "5to Piso", 
+        //     },
+        //     new Album(){
+        //         Id = 2,
+        //         AnioPublicacion = 2006,
+        //         Artista = "Adres Calamaro",
+        //         Nombre = "El Salmon", 
+        //     },
+        // };
 
     public long Ticks { get; set; }
 
@@ -31,11 +33,7 @@ namespace MiPrimerApi.DataProvider
         }
 
         public Album GetAlbum(int id){
-            if (id < 2)
-            {
-                return Albumes[id];
-            }
-            return null;
+            return Albumes.FirstOrDefault<Album>( album => album.Id == id);
         }
 
         public void AddAlbum(Album album){

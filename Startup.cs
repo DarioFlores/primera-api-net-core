@@ -27,7 +27,7 @@ namespace MiPrimerApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IAlbumesDataProvider, AlbumesDataProviderFake>();
+            services.AddScoped<IAlbumesDataProvider, AlbumesDataProviderFake>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
