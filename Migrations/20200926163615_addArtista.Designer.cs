@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MiPrimerApi.Migrations
 {
     [DbContext(typeof(MusicStoreContext))]
-    [Migration("20200925121025_addArtistClass")]
-    partial class addArtistClass
+    [Migration("20200926163615_addArtista")]
+    partial class addArtista
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,7 @@ namespace MiPrimerApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artista");
+                    b.ToTable("Artistas");
                 });
 
             modelBuilder.Entity("MiPrimerApi.Models.Album", b =>

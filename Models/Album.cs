@@ -16,6 +16,10 @@ namespace MiPrimerApi.Models
     [Column("anio_publicacion")]
     [Range(1850, 2000)]
     public int AnioPublicacion { get; set; }
+
+    public int ArtistaId { get; set; }
+
+    [ForeignKey("ArtistaId")]
     public Artista Artista { get; set; }
   }
 }

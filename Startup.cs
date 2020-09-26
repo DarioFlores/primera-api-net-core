@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using MiPrimerApi.DataProvider;
 
 namespace MiPrimerApi
@@ -27,6 +28,7 @@ namespace MiPrimerApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<MusicStoreContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("musicStoreConnection")));
             services.AddScoped<IAlbumesDataProvider, AlbumesDataProviderFake>();
         }
 

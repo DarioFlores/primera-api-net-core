@@ -10,6 +10,8 @@ namespace MiPrimerApi.DataProvider
         public AlbumesDataProviderFake(){
             Ticks = DateTime.Now.Ticks;
         }
+
+        
         private List<Album> Albumes = new List<Album>();
         // {
         //     new Album(){

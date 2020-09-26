@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using MiPrimerApi.Models;
+using System.Linq;
 using MiPrimerApi.DataProvider;
+using Microsoft.EntityFrameworkCore;
 
 namespace Controllers
 {
@@ -9,36 +11,29 @@ namespace Controllers
     [Route("api/[controller]")]
     public class AlbumesController: ControllerBase
     {
-
-        public AlbumesController(IAlbumesDataProvider albumesDataProvider){
-            provider = albumesDataProvider;
-        }
-
+        private MusicStoreContext context;
         private IAlbumesDataProvider provider = new AlbumesDataProviderFake();
 
-        [HttpGet("tick")]
-        public long GetTicks(){
-            return provider.Ticks;
+        public AlbumesController(IAlbumesDataProvider albumesDataProvider, MusicStoreContext _context){
+            provider = albumesDataProvider;
+            context = _context;
         }
 
 
         [HttpGet]
         public List<Album> GetAlbums(){
-            return provider.GetAll();
+            return context.Albumes.Include("Artista").ToList();
         }
 
         [HttpGet("{id:int}")]
         public ActionResult<Album> GetAlbum(int id){
-            if (id < 2)
-            {
-                return Ok(provider.GetAlbum(id));
-            }
-            return NotFound();
+            var album = context.Albumes.Include("Artista").FirstOrDefault( album => album.Id == id);
+            return Ok(album);
         }
 
         [HttpPost]
         public ActionResult<List<Album>> AddAlbum(Album album){
-            provider.AddAlbum(album);
+            context.Albumes.Add(album);
             return Ok(provider.GetAll());
         }
 
